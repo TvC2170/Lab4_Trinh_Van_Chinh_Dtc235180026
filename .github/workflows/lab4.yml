@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths-ignore:
       - "results/**"
+      - "screenshots/**"
   workflow_dispatch:
 
 permissions:
@@ -84,12 +85,37 @@ jobs:
         run: |
           ansible-playbook playbook-webserver.yml 2>&1 | tee results/06-idempotent.txt
 
+      - name: Capture terminal screenshots of actual results
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y scrot xterm xvfb
+          mkdir -p screenshots
+          capture_terminal() {
+            local source_file="$1"
+            local title="$2"
+            local output_file="$3"
+            xvfb-run -a -s '-screen 0 1920x1080x24' bash -c '
+              xterm -geometry 160x50+0+0 -fa "DejaVu Sans Mono" -fs 11 -title "$2" \
+                -e bash -lc "cat \"$1\"; sleep 5" &
+              sleep 2
+              scrot "$3"
+              wait
+            ' _ "$source_file" "$title" "$output_file"
+          }
+          capture_terminal results/02-ansible-ping.txt 'Lab 4 | Ansible ping | GitHub Actions' screenshots/01-ansible-ping.png
+          capture_terminal results/03-adhoc-check.txt 'Lab 4 | Ad-hoc checks | GitHub Actions' screenshots/02-adhoc-check.png
+          capture_terminal results/04-playbook-webserver.txt 'Lab 4 | Web server playbook | GitHub Actions' screenshots/03-playbook-webserver.png
+          capture_terminal results/05-playbook-full.txt 'Lab 4 | Full playbook | GitHub Actions' screenshots/04-playbook-full.png
+          capture_terminal results/06-idempotent.txt 'Lab 4 | Idempotency | GitHub Actions' screenshots/05-idempotent.png
+
       - name: Upload actual run results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: lab4-ansible-results
-          path: results/
+          path: |
+            results/
+            screenshots/
           if-no-files-found: warn
           retention-days: 30
 
@@ -102,7 +128,7 @@ jobs:
               "$GITHUB_SHA" "$GITHUB_JOB" > results/RUN-INFO.txt
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add results/
+            git add results/ screenshots/
             if ! git diff --cached --quiet; then
               git commit -m "Save actual Lab 4 run results #$GITHUB_RUN_NUMBER"
               git push
