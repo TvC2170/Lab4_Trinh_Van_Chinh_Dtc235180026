@@ -103,7 +103,8 @@ jobs:
             ' _ "$source_file" "$title" "$output_file"
           }
           capture_terminal results/02-ansible-ping.txt 'Lab 4 | Ansible ping | GitHub Actions' screenshots/01-ansible-ping.png
-          capture_terminal results/03-adhoc-check.txt 'Lab 4 | Ad-hoc checks | GitHub Actions' screenshots/02-adhoc-check.png
+          sed -n '1,36p' results/03-adhoc-check.txt > /tmp/lab4-adhoc-visible.txt
+          capture_terminal /tmp/lab4-adhoc-visible.txt 'Lab 4 | Ad-hoc checks | GitHub Actions' screenshots/02-adhoc-check.png
           capture_terminal results/04-playbook-webserver.txt 'Lab 4 | Web server playbook | GitHub Actions' screenshots/03-playbook-webserver.png
           capture_terminal results/05-playbook-full.txt 'Lab 4 | Full playbook | GitHub Actions' screenshots/04-playbook-full.png
           capture_terminal results/06-idempotent.txt 'Lab 4 | Idempotency | GitHub Actions' screenshots/05-idempotent.png
