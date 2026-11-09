@@ -5,14 +5,14 @@ web-server-1 | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
-web-server-2 | SUCCESS => {
+db-server-1 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3"
     },
     "changed": false,
     "ping": "pong"
 }
-db-server-1 | SUCCESS => {
+web-server-2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3"
     },

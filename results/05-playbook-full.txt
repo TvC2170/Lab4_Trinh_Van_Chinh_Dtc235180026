@@ -18,8 +18,8 @@ changed: [web-server-1]
 changed: [web-server-2]
 
 TASK [Deploy application config] ***********************************************
-changed: [web-server-1]
 changed: [web-server-2]
+changed: [web-server-1]
 
 TASK [Create health check script] **********************************************
 changed: [web-server-1]
@@ -28,13 +28,13 @@ changed: [web-server-2]
 PLAY [Setup Monitoring Agents] *************************************************
 
 TASK [Update apt cache] ********************************************************
-ok: [db-server-1]
-ok: [web-server-1]
 ok: [web-server-2]
+ok: [web-server-1]
+ok: [db-server-1]
 
 TASK [Install monitoring tools] ************************************************
-changed: [db-server-1]
 changed: [web-server-1]
+changed: [db-server-1]
 changed: [web-server-2]
 
 PLAY RECAP *********************************************************************

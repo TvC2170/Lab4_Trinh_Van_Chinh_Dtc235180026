@@ -1,14 +1,14 @@
+web-server-1 | CHANGED | rc=0 >>
+=== Health Check: Mon Nov  9 00:45:08 UTC 2026 ===
+Hostname: 7a8f32bb1323
+Uptime:  00:45:08 up 2 min,  0 users,  load average: 2.30, 1.02, 0.39
+Disk: overlay         145G   59G   87G  41% /
+Memory: Mem:           15983        1004       11855          48        3123       14585
 db-server-1 | FAILED | rc=127 >>
 /bin/sh: 1: /opt/myapp/health-check.sh: not foundnon-zero return code
 web-server-2 | CHANGED | rc=0 >>
-=== Health Check: Mon Nov  9 00:40:39 UTC 2026 ===
-Hostname: 98b2ee070e5d
-Uptime:  00:40:39 up 2 min,  0 users,  load average: 1.60, 0.55, 0.20
+=== Health Check: Mon Nov  9 00:45:08 UTC 2026 ===
+Hostname: 8b4a92b04fc8
+Uptime:  00:45:08 up 2 min,  0 users,  load average: 2.30, 1.02, 0.39
 Disk: overlay         145G   59G   87G  41% /
-Memory: Mem:           15983        1064       11810          47        3108       14526
-web-server-1 | CHANGED | rc=0 >>
-=== Health Check: Mon Nov  9 00:40:39 UTC 2026 ===
-Hostname: c587517ab7da
-Uptime:  00:40:39 up 2 min,  0 users,  load average: 1.60, 0.55, 0.20
-Disk: overlay         145G   59G   87G  41% /
-Memory: Mem:           15983        1065       11809          47        3108       14525
+Memory: Mem:           15983         988       11871          48        3123       14601
