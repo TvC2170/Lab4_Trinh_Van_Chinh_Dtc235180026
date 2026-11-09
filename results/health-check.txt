@@ -1,0 +1,14 @@
+db-server-1 | FAILED | rc=127 >>
+/bin/sh: 1: /opt/myapp/health-check.sh: not foundnon-zero return code
+web-server-2 | CHANGED | rc=0 >>
+=== Health Check: Mon Nov  9 00:26:17 UTC 2026 ===
+Hostname: aa8917bfa5ac
+Uptime:  00:26:17 up 2 min,  0 users,  load average: 2.53, 1.21, 0.47
+Disk: overlay         145G   59G   87G  41% /
+Memory: Mem:           15983        1028       11834          48        3119       14561
+web-server-1 | CHANGED | rc=0 >>
+=== Health Check: Mon Nov  9 00:26:17 UTC 2026 ===
+Hostname: 4ec8aad9759c
+Uptime:  00:26:17 up 2 min,  0 users,  load average: 2.53, 1.21, 0.47
+Disk: overlay         145G   59G   87G  41% /
+Memory: Mem:           15983        1029       11833          48        3119       14560

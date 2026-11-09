@@ -1,0 +1,53 @@
+{
+    "_meta": {
+        "hostvars": {
+            "db-server-1": {
+                "ansible_connection": "ssh",
+                "ansible_host": "127.0.0.1",
+                "ansible_password": "root",
+                "ansible_port": 2203,
+                "ansible_ssh_common_args": "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+                "ansible_user": "root"
+            },
+            "web-server-1": {
+                "ansible_connection": "ssh",
+                "ansible_host": "127.0.0.1",
+                "ansible_password": "root",
+                "ansible_port": 2201,
+                "ansible_ssh_common_args": "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+                "ansible_user": "root"
+            },
+            "web-server-2": {
+                "ansible_connection": "ssh",
+                "ansible_host": "127.0.0.1",
+                "ansible_password": "root",
+                "ansible_port": 2202,
+                "ansible_ssh_common_args": "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+                "ansible_user": "root"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "production"
+        ]
+    },
+    "dbservers": {
+        "hosts": [
+            "db-server-1"
+        ]
+    },
+    "production": {
+        "children": [
+            "webservers",
+            "dbservers"
+        ]
+    },
+    "webservers": {
+        "hosts": [
+            "web-server-1",
+            "web-server-2"
+        ]
+    }
+}

@@ -1,0 +1,9 @@
+ansible [core 2.16.20]
+  config file = /home/runner/work/Lab4_Trinh_Van_Chinh_Dtc235180026/Lab4_Trinh_Van_Chinh_Dtc235180026/ansible.cfg
+  configured module search path = ['/home/runner/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/ansible
+  ansible collection location = /home/runner/.ansible/collections:/usr/share/ansible/collections
+  executable location = /opt/hostedtoolcache/Python/3.11.18/x64/bin/ansible
+  python version = 3.11.18 (main, Oct 26 2026, 02:48:29) [GCC 15.2.0] (/opt/hostedtoolcache/Python/3.11.18/x64/bin/python)
+  jinja version = 3.1.6
+  libyaml = True
