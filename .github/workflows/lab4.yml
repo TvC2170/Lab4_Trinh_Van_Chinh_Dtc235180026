@@ -3,10 +3,12 @@ name: Run Ansible Lab 4
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "results/**"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   lab4:
@@ -90,6 +92,22 @@ jobs:
           path: results/
           if-no-files-found: warn
           retention-days: 30
+
+      - name: Publish actual run logs in repository
+        if: always()
+        run: |
+          if [ -d results ] && [ -n "$(find results -type f -print -quit)" ]; then
+            printf 'GitHub Actions run: %s\nCommit: %s\nResult: %s\n' \
+              "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+              "$GITHUB_SHA" "$GITHUB_JOB" > results/RUN-INFO.txt
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add results/
+            if ! git diff --cached --quiet; then
+              git commit -m "Save actual Lab 4 run results #$GITHUB_RUN_NUMBER"
+              git push
+            fi
+          fi
 
       - name: Stop managed nodes
         if: always()
