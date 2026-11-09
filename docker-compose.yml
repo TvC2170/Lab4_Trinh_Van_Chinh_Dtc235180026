@@ -1,0 +1,23 @@
+services:
+  web-server-1:
+    image: phamthuongdocker/ubuntu-sshd:22.04
+    container_name: web-server-1
+    privileged: true
+    ports:
+      - "2201:22"
+      - "8081:80"
+
+  web-server-2:
+    image: phamthuongdocker/ubuntu-sshd:22.04
+    container_name: web-server-2
+    privileged: true
+    ports:
+      - "2202:22"
+      - "8082:80"
+
+  db-server-1:
+    image: phamthuongdocker/ubuntu-sshd:22.04
+    container_name: db-server-1
+    privileged: true
+    ports:
+      - "2203:22"

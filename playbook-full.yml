@@ -1,0 +1,72 @@
+---
+- name: Configure Web Tier
+  hosts: webservers
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install common packages
+      ansible.builtin.apt:
+        name:
+          - curl
+          - git
+          - htop
+          - vim
+        state: present
+
+    - name: Create application directory
+      ansible.builtin.file:
+        path: /opt/myapp
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Deploy application config
+      ansible.builtin.copy:
+        dest: /opt/myapp/config.env
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          APP_NAME=DevOpsLab4
+          APP_ENV=production
+          APP_PORT=8080
+
+    - name: Create health check script
+      ansible.builtin.copy:
+        dest: /opt/myapp/health-check.sh
+        owner: root
+        group: root
+        mode: "0755"
+        content: |
+          #!/bin/bash
+          set -eu
+          echo "=== Health Check: $(date) ==="
+          echo "Hostname: $(hostname)"
+          echo "Uptime: $(uptime)"
+          echo "Disk: $(df -h / | tail -1)"
+          echo "Memory: $(free -m | grep Mem || true)"
+
+- name: Setup Monitoring Agents
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install monitoring tools
+      ansible.builtin.apt:
+        name:
+          - sysstat
+          - net-tools
+        state: present

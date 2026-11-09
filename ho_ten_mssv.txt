@@ -1,0 +1,2 @@
+Ho ten: [Dien ho ten cua ban]
+MSSV: [Dien ma so sinh vien]
