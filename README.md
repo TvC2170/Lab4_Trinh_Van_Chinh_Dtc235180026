@@ -10,6 +10,8 @@ Bộ bài này triển khai các yêu cầu trong [Lab4_HuongDan.md](https://git
 
 ## Chạy lab
 
+Bạn không cần cài Docker trên máy cá nhân để lấy kết quả chạy: workflow [Run Ansible Lab 4](../../actions/workflows/lab4.yml) tự chạy trên GitHub-hosted Ubuntu runner khi push lên `main`. Mở lần chạy mới nhất, tải artifact `lab4-ansible-results` để lấy log đầu ra thực tế. Có thể bấm **Run workflow** để chạy lại.
+
 Trong thư mục repo:
 
 ```bash
@@ -70,8 +72,8 @@ docker compose down
 
 > Mật khẩu `root` trong inventory chỉ dùng cho lab cục bộ. Không dùng thông tin xác thực này trong môi trường thật.
 
-## Ảnh chụp để nộp
+## Kết quả và ảnh chụp để nộp
 
-Chụp terminal sau khi chạy thành công các lệnh ở trên và lưu lần lượt vào `screenshots/` theo tên trong yêu cầu môn học (`01-ansible-ping.png` đến `05-idempotent.png`). Ảnh cần được chụp trên máy có Docker và Ansible; không tạo ảnh giả lập kết quả chạy.
+Workflow lưu log thật cho ping, ad-hoc, playbook web, full playbook và idempotency trong artifact `lab4-ansible-results`. Nếu giảng viên bắt buộc định dạng PNG, mở log tải về và chụp màn hình kết quả thật trên GitHub Actions, rồi lưu vào `screenshots/` theo tên yêu cầu (`01-ansible-ping.png` đến `05-idempotent.png`).
 
 Điền họ tên/MSSV vào `ho_ten_mssv.txt` trước khi nén bộ bài nộp.

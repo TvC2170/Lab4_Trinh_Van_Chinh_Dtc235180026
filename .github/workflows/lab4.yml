@@ -1,0 +1,96 @@
+name: Run Ansible Lab 4
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lab4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Ansible and SSH password helper
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'ansible>=9,<10'
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+
+      - name: Start managed nodes
+        run: |
+          mkdir -p results
+          docker compose up -d
+          docker compose ps | tee results/01-containers.txt
+          for port in 2201 2202 2203; do
+            for attempt in $(seq 1 30); do
+              if timeout 2 bash -c "</dev/tcp/127.0.0.1/${port}" 2>/dev/null; then
+                break
+              fi
+              sleep 2
+            done
+          done
+
+      - name: Verify inventory and Ansible connectivity
+        run: |
+          ansible --version | tee results/ansible-version.txt
+          ansible-inventory --list | tee results/inventory.json
+          ansible all -m ping | tee results/02-ansible-ping.txt
+
+      - name: Run ad-hoc checks
+        run: |
+          {
+            echo '=== OS release ==='
+            ansible all -m shell -a 'cat /etc/os-release | head -3'
+            echo '=== Disk ==='
+            ansible all -m shell -a 'df -h /'
+            echo '=== Memory ==='
+            ansible all -m shell -a 'free -m | head -2'
+            echo '=== Web hostnames ==='
+            ansible webservers -m shell -a hostname
+            echo '=== Install curl ==='
+            ansible all -m apt -a 'name=curl state=present update_cache=yes'
+          } 2>&1 | tee results/03-adhoc-check.txt
+
+      - name: Run web server playbook and verify HTTP
+        run: |
+          ansible-playbook playbook-webserver.yml --syntax-check 2>&1 | tee results/webserver-syntax.txt
+          ansible-playbook playbook-webserver.yml 2>&1 | tee results/04-playbook-webserver.txt
+          curl --fail --retry 10 --retry-delay 2 http://127.0.0.1:8081 | tee results/web-server-1.html
+          curl --fail --retry 10 --retry-delay 2 http://127.0.0.1:8082 | tee results/web-server-2.html
+
+      - name: Run full stack playbook
+        run: |
+          ansible-playbook playbook-full.yml --syntax-check 2>&1 | tee results/full-syntax.txt
+          ansible-playbook playbook-full.yml 2>&1 | tee results/05-playbook-full.txt
+          ansible all -m shell -a '/opt/myapp/health-check.sh' 2>&1 | tee results/health-check.txt
+          ansible all -m shell -a 'cat /opt/myapp/config.env' 2>&1 | tee results/app-config.txt
+
+      - name: Verify idempotency
+        run: |
+          ansible-playbook playbook-webserver.yml 2>&1 | tee results/06-idempotent.txt
+
+      - name: Upload actual run results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab4-ansible-results
+          path: results/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Stop managed nodes
+        if: always()
+        run: docker compose down
