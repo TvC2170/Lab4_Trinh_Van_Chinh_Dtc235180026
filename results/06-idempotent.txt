@@ -2,20 +2,20 @@
 PLAY [Configure Web Servers] ***************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [web-server-2]
 ok: [web-server-1]
+ok: [web-server-2]
 
 TASK [Update apt cache] ********************************************************
-ok: [web-server-2]
 ok: [web-server-1]
+ok: [web-server-2]
 
 TASK [Install Apache web server] ***********************************************
 ok: [web-server-1]
 ok: [web-server-2]
 
 TASK [Ensure Apache is running and enabled] ************************************
-ok: [web-server-1]
 ok: [web-server-2]
+ok: [web-server-1]
 
 TASK [Deploy custom index page from Jinja2 template] ***************************
 ok: [web-server-1]
