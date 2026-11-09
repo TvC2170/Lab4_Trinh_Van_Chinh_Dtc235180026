@@ -6,20 +6,20 @@ ok: [web-server-1]
 ok: [web-server-2]
 
 TASK [Update apt cache] ********************************************************
-ok: [web-server-2]
 ok: [web-server-1]
+ok: [web-server-2]
 
 TASK [Install Apache web server] ***********************************************
 changed: [web-server-1]
 changed: [web-server-2]
 
 TASK [Ensure Apache is running and enabled] ************************************
-changed: [web-server-2]
 changed: [web-server-1]
+changed: [web-server-2]
 
 TASK [Deploy custom index page from Jinja2 template] ***************************
-changed: [web-server-2]
 changed: [web-server-1]
+changed: [web-server-2]
 
 RUNNING HANDLER [Restart Apache] ***********************************************
 changed: [web-server-1]

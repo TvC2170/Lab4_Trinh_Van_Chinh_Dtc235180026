@@ -14,12 +14,12 @@ ok: [web-server-1]
 ok: [web-server-2]
 
 TASK [Ensure Apache is running and enabled] ************************************
-ok: [web-server-2]
 ok: [web-server-1]
+ok: [web-server-2]
 
 TASK [Deploy custom index page from Jinja2 template] ***************************
-ok: [web-server-2]
 ok: [web-server-1]
+ok: [web-server-2]
 
 PLAY RECAP *********************************************************************
 web-server-1               : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

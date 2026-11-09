@@ -1,10 +1,10 @@
-web-server-1 | CHANGED | rc=0 >>
+web-server-2 | CHANGED | rc=0 >>
 APP_NAME=DevOpsLab4
 APP_ENV=production
 APP_PORT=8080
 db-server-1 | FAILED | rc=1 >>
 cat: /opt/myapp/config.env: No such file or directorynon-zero return code
-web-server-2 | CHANGED | rc=0 >>
+web-server-1 | CHANGED | rc=0 >>
 APP_NAME=DevOpsLab4
 APP_ENV=production
 APP_PORT=8080
