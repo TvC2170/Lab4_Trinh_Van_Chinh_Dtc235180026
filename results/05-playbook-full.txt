@@ -2,8 +2,8 @@
 PLAY [Configure Web Tier] ******************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [web-server-1]
 ok: [web-server-2]
+ok: [web-server-1]
 
 TASK [Update apt cache] ********************************************************
 ok: [web-server-1]
@@ -28,14 +28,14 @@ changed: [web-server-2]
 PLAY [Setup Monitoring Agents] *************************************************
 
 TASK [Update apt cache] ********************************************************
-ok: [web-server-2]
-ok: [web-server-1]
 ok: [db-server-1]
+ok: [web-server-1]
+ok: [web-server-2]
 
 TASK [Install monitoring tools] ************************************************
-changed: [web-server-1]
-changed: [db-server-1]
 changed: [web-server-2]
+changed: [db-server-1]
+changed: [web-server-1]
 
 PLAY RECAP *********************************************************************
 db-server-1                : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
